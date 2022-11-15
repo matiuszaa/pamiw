@@ -7,15 +7,19 @@ import com.example.mwo.app.dto.RegisterUserDto;
 import com.example.mwo.app.entity.User;
 import com.example.mwo.app.factory.UserFactory;
 import com.example.mwo.app.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userDAO;
+    private final UserRepository userDAO;
 
     private UserFactory userFactory = new UserFactory();
 
@@ -39,9 +43,8 @@ public class UserServiceImpl implements UserService {
             log.error("Not valid login user");
             throw new IllegalArgumentException("Not valid Fields");
         }
-
-        loggedUser = userFactory.mapLoginToUser(loggingUser);
-        User foundUser = userDAO.validateUser(loggedUser);
+        User loggedUsers = userFactory.mapLoginToUser(loggingUser);
+        User foundUser = userDAO.validateUser(loggedUsers);
 
         return userFactory.mapUserToLogin(foundUser);
     }
