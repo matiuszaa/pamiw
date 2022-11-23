@@ -57,4 +57,9 @@ public class UserController {
 
         return "redirect:/parking/menu";
     }
+
+    public static void main(String[] args) {
+        String s= "00369";
+        System.out.println(Integer.valueOf(s));
+    }
 }

@@ -59,7 +59,6 @@ public class ParkingServiceImpl implements ParkingService {
         if (theParking.getAdress() == null || theParking.getCityName() == null || theParking.getCityName() == null){
             log.error("Cannot reserve parking spot because of wrong fields i ParkingDTO");
             throw new IllegalArgumentException("Invalid fields");
-
         }
 
         Parking parking = parkingFactory.mapToParking(theParking);
@@ -82,8 +81,8 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     @Transactional
-    public void releaseSpace(String[] list) {
-        parkingRepository.releaseSpace(list);
+    public void releaseSpace(String spaceSignature, Parking parking) {
+        parkingRepository.releaseSpace(spaceSignature, parking);
 
     }
 

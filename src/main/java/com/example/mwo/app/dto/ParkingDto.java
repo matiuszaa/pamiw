@@ -4,8 +4,8 @@ import com.example.mwo.app.entity.ParkingSpot;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.Column;
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @Getter
@@ -19,6 +19,19 @@ public class ParkingDto {
     private int spacesInTotal;
 
     private int freeSpaces;
+
+    @Override
+    public String toString() {
+        return "ParkingDto{" +
+                "spaces=" + spaces +
+                ", cityName='" + cityName + '\'' +
+                ", adress='" + adress + '\'' +
+                ", spacesInTotal=" + spacesInTotal +
+                ", freeSpaces=" + freeSpaces +
+                ", disabledSpaces=" + disabledSpaces +
+                ", price=" + price +
+                '}';
+    }
 
     private int disabledSpaces;
 

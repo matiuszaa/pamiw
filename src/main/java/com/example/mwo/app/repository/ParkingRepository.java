@@ -1,6 +1,7 @@
 package com.example.mwo.app.repository;
 
 import com.example.mwo.app.entity.Parking;
+import com.example.mwo.app.entity.ParkingSpot;
 import com.example.mwo.app.entity.Reservation;
 import com.example.mwo.app.entity.ReservedParking;
 import org.springframework.stereotype.Repository;
@@ -14,9 +15,9 @@ public interface ParkingRepository {
 
     public List<Parking> showAvailableParkings();
 
-    public void reserveParkingSpot(Parking theParking);
+    public ParkingSpot reserveParkingSpot(Parking theParking);
 
     public List<Reservation> getReservations();
 
-    public void releaseSpace(String[] list);
+    public void releaseSpace(String spaceSignature, Parking parking);
 }

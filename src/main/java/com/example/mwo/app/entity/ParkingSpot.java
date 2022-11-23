@@ -32,7 +32,7 @@ public class ParkingSpot {
     private String spaceSignature;
 
     @ManyToOne
-    @JoinColumn(name="parking_id")
+    @JoinColumn(name = "parking_id")
     private Parking parking;
 
     @Column(name="is_occupied")

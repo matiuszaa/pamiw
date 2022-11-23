@@ -31,7 +31,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name="parking_id")
-    private Parking parking;
+    private Parking parkingId;
 
     @ManyToOne
     @JoinColumn(name="parking_spot")

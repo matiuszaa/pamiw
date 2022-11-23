@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.example.mwo.app.dto.ParkingDto;
 import com.example.mwo.app.dto.ReservationDto;
+import com.example.mwo.app.entity.Parking;
+import org.springframework.stereotype.Service;
 
 public interface ParkingService {
 
@@ -11,5 +13,5 @@ public interface ParkingService {
     public List<String> showAvailableParkings();
     public ParkingDto reserveParkingSpot(ParkingDto theParking);
     public List<ReservationDto> getReservations();
-    public void releaseSpace(String[] list);
+    public void releaseSpace(String spaceSignature, Parking parking);
 }

@@ -7,12 +7,14 @@ import com.example.mwo.app.dto.ReservationDto;
 import com.example.mwo.app.entity.Parking;
 import com.example.mwo.app.entity.ReservedParking;
 import com.example.mwo.app.service.ParkingService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping("/parking")
 public class ParkingController {
 
@@ -20,18 +22,18 @@ public class ParkingController {
     private ParkingService parkingService;
 
     @RequestMapping("/menu")
+    @ResponseBody
     public String parkingMenu(Model theModel) {
         return "parking-menu-for-users";
     }
 
     @GetMapping("/list")
-    public List<ParkingDto> listParking(Model theModel) {
-
+    public @ResponseBody ParkingDto listParking(Model theModel) {
         List<ParkingDto> theParkings = parkingService.getParkingList();
 
         theModel.addAttribute("parkings", theParkings);
 
-        return theParkings;
+        return theParkings.get(0);
     }
 
     @RequestMapping("/reserve")
@@ -60,10 +62,9 @@ public class ParkingController {
         return reservations;
     }
 
-    @DeleteMapping("/delete")
-    public String delete(@RequestParam("tempReservations") String reserved) {
-        String[] list = reserved.split(";");
-        parkingService.releaseSpace(list);
-        return "deleted";
+    @PostMapping("/release")
+    public String releaseSpace(String spaceSignature, Parking parking) {
+        parkingService.releaseSpace(spaceSignature, parking);
+        return "Space " + spaceSignature + " has been released";
     }
 }
