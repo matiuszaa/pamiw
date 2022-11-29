@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.mwo.app.dto.LoginUserDto;
 import com.example.mwo.app.dto.RegisterUserDto;
+import com.example.mwo.app.entity.Role;
 import com.example.mwo.app.entity.User;
 import com.example.mwo.app.factory.UserFactory;
 import com.example.mwo.app.repository.UserRepository;
@@ -22,8 +23,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userDAO;
 
     private UserFactory userFactory = new UserFactory();
-
-    private User loggedUser;
 
     @Override
     @Transactional
@@ -55,5 +54,19 @@ public class UserServiceImpl implements UserService {
         List<String> locationsList = userDAO.showAvailableCities();
         return locationsList;
     }
+
+    @Override
+    public boolean createNewPerson(RegisterUserDto person){
+        User user = userFactory.mapRegisterToUser(person);
+        boolean isSaved = false;
+        Role role = Role.USER;
+        User foundUser = userDAO.saveUserAndRole(user, role);
+        if (null != foundUser && foundUser.getId() > 0)
+        {
+            isSaved = true;
+        }
+        return isSaved;
+    }
+
 
 }

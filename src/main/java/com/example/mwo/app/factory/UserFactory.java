@@ -22,7 +22,11 @@ public class UserFactory {
         return User.builder()
                 .email(loginUserDto.getEmail())
                 .password(loginUserDto.getPassword())
-                .city(loginUserDto.getCity()).build();
+                .city(loginUserDto.getCity())
+                .firstName(loginUserDto.getFirstName())
+                .lastName(loginUserDto.getLastName())
+                .isDisability("0")
+                .isLogged(0).build();
     }
 
     public RegisterUserDto mapUserToRegister(User loginUserDto) {

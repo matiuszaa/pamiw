@@ -9,62 +9,71 @@ import com.example.mwo.app.entity.ReservedParking;
 import com.example.mwo.app.service.ParkingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/parking")
 public class ParkingController {
 
     @Autowired
     private ParkingService parkingService;
 
     @RequestMapping("/menu")
-    @ResponseBody
     public String parkingMenu(Model theModel) {
-        return "parking-menu-for-users";
+        return "home.html";
     }
 
-    @GetMapping("/list")
-    public @ResponseBody ParkingDto listParking(Model theModel) {
+    @RequestMapping("/parkings")
+    public String listParking(Model theModel) {
         List<ParkingDto> theParkings = parkingService.getParkingList();
 
         theModel.addAttribute("parkings", theParkings);
 
-        return theParkings.get(0);
+        return "parkings.html";
     }
 
-    @RequestMapping("/reserve")
-    public List<String> reserveParkingSpot(Model theModel) {
-        Parking theParking = new Parking();
-        List<String> parkings = parkingService.showAvailableParkings();
-        theModel.addAttribute("theParking", theParking);
-        theModel.addAttribute("parkingsy", parkings);
-
-        return parkings;
+    @RequestMapping("/reserve/page/{pageNum}")
+    public ModelAndView reserveParkingSpot(Model model,
+           @PathVariable(name = "pageNum") int pageNum, @RequestParam("sortField") String sortField,
+           @RequestParam("sortDir") String sortDir) {
+        Page<Parking> parkPage = parkingService.findParkingsWithOpenSpaces(pageNum, sortField, sortDir);
+        List<Parking> parking = parkPage.getContent();
+        ModelAndView modelAndView = new ModelAndView("reserve.html");
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", parkPage.getTotalPages());
+        model.addAttribute("totalMsgs", parkPage.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        modelAndView.addObject("parkings", parking);
+        return modelAndView;
     }
 
-    @PostMapping("/getParkingSpot")
-    public String getParkingSpot(@ModelAttribute("theParking") ParkingDto theParking) {
-        parkingService.reserveParkingSpot(theParking);
+    @RequestMapping("/getParkingSpot")
+    public String getParkingSpot(@RequestParam String adress) {
+        ParkingDto parkingDto = new ParkingDto();
+        parkingDto.setAdress(adress);
+        parkingService.reserveParkingSpot(parkingDto);
 
-        return "Spot Reserved";
+        return "redirect:/menu";
     }
 
-    @GetMapping("/reserve-list")
-    public List<ReservationDto> getReservationList(Model theModel) {
+    @RequestMapping("/reservation")
+    public String getReservationList(Model theModel) {
         List<ReservationDto> reservations = parkingService.getReservations();
-        ReservedParking reserved = new ReservedParking();
         theModel.addAttribute("reservations", reservations);
-        theModel.addAttribute("reserved", reserved);
-        return reservations;
+        return "reservation.html";
     }
 
-    @PostMapping("/release")
-    public String releaseSpace(String spaceSignature, Parking parking) {
-        parkingService.releaseSpace(spaceSignature, parking);
-        return "Space " + spaceSignature + " has been released";
+    @RequestMapping("/release")
+    public String releaseSpace(@RequestParam String spaceSignature,@RequestParam String adress) {
+        parkingService.releaseSpace(spaceSignature, adress);
+        return "redirect:/menu";
     }
 }

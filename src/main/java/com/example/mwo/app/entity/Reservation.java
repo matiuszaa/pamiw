@@ -25,6 +25,14 @@ public class Reservation {
     @Column(name="id")
     private int id;
 
+    public Reservation(User user, Parking parkingId, ParkingSpot parkingSpot, String startDate, String endDate) {
+        this.user = user;
+        this.parkingId = parkingId;
+        this.parkingSpot = parkingSpot;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

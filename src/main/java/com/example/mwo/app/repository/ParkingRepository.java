@@ -19,5 +19,5 @@ public interface ParkingRepository {
 
     public List<Reservation> getReservations();
 
-    public void releaseSpace(String spaceSignature, Parking parking);
+    public void releaseSpace(String spaceSignature, String parking);
 }

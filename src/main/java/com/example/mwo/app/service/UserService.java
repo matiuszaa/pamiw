@@ -13,4 +13,6 @@ public interface UserService {
     public LoginUserDto validateUser(LoginUserDto loggingUser);
 
     public List<String> showAvailableCities();
+
+    boolean createNewPerson(RegisterUserDto person);
 }

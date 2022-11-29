@@ -79,11 +79,9 @@ public class UserServiceImplTest {
                 .password("password")
                 .city("city")
                 .firstName("firstName")
-                .isDisability("isDisabled")
                 .lastName("lastName").build();
 
         doNothing().when(userRepositoryMock).registerUser(any(User.class));
-
     }
 
     @Test
@@ -93,7 +91,6 @@ public class UserServiceImplTest {
                 .password("password")
                 .city(null)
                 .firstName("firstName")
-                .isDisability("isDisabled")
                 .lastName("lastName").build();
 
         doNothing().when(userRepositoryMock).registerUser(any(User.class));

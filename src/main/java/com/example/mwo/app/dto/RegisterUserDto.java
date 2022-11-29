@@ -1,10 +1,12 @@
 package com.example.mwo.app.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterUserDto {
 
     private String firstName;
@@ -16,6 +18,4 @@ public class RegisterUserDto {
     private String password;
 
     private String city;
-
-    private String isDisability;
 }

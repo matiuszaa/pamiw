@@ -1,14 +1,16 @@
 package com.example.mwo.app.dto;
 
 import com.example.mwo.app.entity.ParkingSpot;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
 
 @Builder
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ParkingDto {
     List<ParkingSpot> spaces;
 
@@ -16,9 +18,9 @@ public class ParkingDto {
 
     private String adress;
 
-    private int spacesInTotal;
+    private Integer spacesInTotal;
 
-    private int freeSpaces;
+    private Integer freeSpaces;
 
     @Override
     public String toString() {
@@ -33,7 +35,7 @@ public class ParkingDto {
                 '}';
     }
 
-    private int disabledSpaces;
+    private Integer disabledSpaces;
 
-    private int price;
+    private Integer price;
 }

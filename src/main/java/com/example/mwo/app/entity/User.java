@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="user")
 public class User {
 
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL)
@@ -25,7 +26,7 @@ public class User {
     @Column(name="first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name="lastName")
     private String lastName;
 
     @Column(name="email")
