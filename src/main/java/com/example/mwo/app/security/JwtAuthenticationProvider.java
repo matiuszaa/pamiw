@@ -19,7 +19,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class EazySchoolUsernamePwdAuthenticationProvider
+public class JwtAuthenticationProvider
         implements AuthenticationProvider
 {
     @Autowired

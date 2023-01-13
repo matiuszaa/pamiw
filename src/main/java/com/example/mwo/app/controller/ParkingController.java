@@ -10,6 +10,9 @@ import com.example.mwo.app.service.ParkingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,9 @@ import javax.validation.Valid;
 public class ParkingController {
 
     @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
     private ParkingService parkingService;
 
     @RequestMapping("/menu")
@@ -30,6 +36,7 @@ public class ParkingController {
     }
 
     @RequestMapping("/parkings")
+    @PreAuthorize("hasRole('USER')")
     public String listParking(Model theModel) {
         List<ParkingDto> theParkings = parkingService.getParkingList();
 

@@ -79,6 +79,16 @@ public class UserRepositoryIMPL implements UserRepository {
 
     }
 
+    @Override
+    public User findByUsername(String username) {
+        Session session = sessionFactory.openSession();
+
+        String hql = "FROM User u where u.email = :email";
+        Query query = session.createQuery(hql, User.class);
+        query.setParameter("email", username);
+        return (User) query.getSingleResult();
+    }
+
     public User readByCredentials(String email, String password) {
         Session session = sessionFactory.openSession();
 

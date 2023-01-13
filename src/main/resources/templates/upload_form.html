@@ -1,72 +1,48 @@
-
-<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Parking Lot - Best parking application</title>
+    <title>Parking lot - best parking application</title>
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Template CSS Style link -->
     <link rel="stylesheet" href="assets/css/style-starter.css">
 </head>
-
 <body>
-
 <!-- header -->
-<div th:replace="header :: header">...</div>
+<div th:replace="header :: header"></div>
 <!-- //header -->
-
-<!-- inner banner -->
-<section class="inner-banner py-5">
-    <div class="w3l-breadcrumb py-lg-5">
-        <div class="container pt-4 pb-sm-4">
-            <h4 class="inner-text-title pt-5">LogIn</h4>
-            <ul class="breadcrumbs-custom-path">
-                <li><a th:href="@{/menu}">Home</a></li>
-                <li class="active"><i class="fas fa-angle-right"></i>LogIn</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!-- //inner banner -->
-
-<!-- login block -->
-<section class="w3l-contact py-5" id="contact">
+<section class="services-w3l-block py-5" id="features">
     <div class="container py-md-5 py-4">
-        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
-            <h3 class="title-style">LogIn</h3>
-        </div>
-        <div class="row login-block">
-            <div class="col-md-6 login-center">
-                <form action="/login" method="post" class="signin-form">
-                    <div class="col-md-8 login-center input-grids">
-                        <li class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(errorMessge)}"
-                            th:text="${errorMessge}" />
-                        <input type="text" name="username" id="username" placeholder="Username"
-                               class="login-input" />
-                        <input type="password" name="password" id="password" placeholder="Password"
-                               class="login-input" />
-                    </div>
-                    <div class="col-md-8 login-center text-start">
-                        <button class="btn btn-style btn-style-3 text-left">Log In</button>
-                        <a th:href="@{/register}" class="new-user text-right" href="">New User ?</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="container" style="max-width: 500px">
+    <h3 class="mb-3">Spring Boot Image Upload example</h3>
+
+    <form
+            id="uploadForm"
+            method="post"
+            th:action="@{/images/upload}"
+            enctype="multipart/form-data">
+        <input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
+        <button class="btn btn-sm btn-outline-success float-right" type="submit">
+            Upload
+        </button>
+    </form>
+
+    <div
+            th:if="${message != null}"
+            class="alert alert-secondary alert-dismissible fade show text-center message mt-3"
+            role="alert">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
     </div>
-</section>
-<!-- //login block -->
+</div>
+    </div>>
+</section>>
+<div th:replace="footer :: footer"></div>
 
-<!-- footer block -->
-<div th:replace="footer :: footer">...</div>
-<!-- //footer block -->
-
-<!-- Js scripts -->
-<!-- move top -->
 <button onclick="topFunction()" id="movetop" title="Go to top">
     <span class="fas fa-level-up-alt" aria-hidden="true"></span>
 </button>
@@ -95,6 +71,10 @@
 <!-- common jquery plugin -->
 <script src="assets/js/jquery-3.3.1.min.js"></script>
 <!-- //common jquery plugin -->
+
+<!-- /counter-->
+<script src="assets/js/counter.js"></script>
+<!-- //counter-->
 
 <!-- theme switch js (light and dark)-->
 <script src="assets/js/theme-change.js"></script>
@@ -127,9 +107,7 @@
         });
     });
 </script>
-<!-- //MENU-JS -->
 
-<!-- disable body scroll which navbar is in active -->
 <script>
     $(function () {
         $('.navbar-toggler').click(function () {
@@ -137,12 +115,8 @@
         })
     });
 </script>
-<!-- //disable body scroll which navbar is in active -->
 
-<!-- bootstrap -->
 <script src="assets/js/bootstrap.min.js"></script>
-<!-- //bootstrap -->
-<!-- //Js scripts -->
-</body>
 
+</body>
 </html>

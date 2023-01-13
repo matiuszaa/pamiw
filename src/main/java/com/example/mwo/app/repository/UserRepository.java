@@ -14,4 +14,6 @@ public interface UserRepository {
     List<String> showAvailableCities();
 
     User saveUserAndRole(User person, Role role);
+
+    User findByUsername(String username);
 }

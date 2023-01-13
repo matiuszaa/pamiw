@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/JSP/Page">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/JSP/Page"
+      xmlns:color="http://www.w3.org/1999/xhtml">
 
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Eazy School - Best Educational Institute for your Child</title>
+    <title>Parking lot - best parking application</title>
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Template CSS Style link -->
     <link rel="stylesheet" href="/assets/css/style-starter.css">
 </head>
 
@@ -40,7 +40,6 @@
         </tr>
         </thead>
         <tbody>
-        <!-- list = List added in Context by Java/Spring Controller -->
         <tr th:each="reservation : ${reservations}">
             <td th:text="${reservation.parkingAdress}"></td>
             <td th:text="${reservation.spaceSignature}"></td>
@@ -50,7 +49,7 @@
             </div>
             <div th:unless="${reservation.endDate != null}">
                 <td>
-                    <a th:href="@{/release(spaceSignature=${reservation.spaceSignature},adress=${reservation.parkingAdress})}">Home</a>
+                    <a th:style="${'color: red;'}" th:href="@{/release(spaceSignature=${reservation.spaceSignature},adress=${reservation.parkingAdress})}">End reservation</a>
                 </td>
             </div>
         </tr>

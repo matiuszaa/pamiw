@@ -1,68 +1,55 @@
-
-<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Parking Lot - Best parking application</title>
+    <title>Parking lot - best parking application</title>
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Template CSS Style link -->
     <link rel="stylesheet" href="assets/css/style-starter.css">
 </head>
-
 <body>
-
 <!-- header -->
-<div th:replace="header :: header">...</div>
+<div th:replace="header :: header"></div>
 <!-- //header -->
-
-<!-- inner banner -->
-<section class="inner-banner py-5">
-    <div class="w3l-breadcrumb py-lg-5">
-        <div class="container pt-4 pb-sm-4">
-            <h4 class="inner-text-title pt-5">LogIn</h4>
-            <ul class="breadcrumbs-custom-path">
-                <li><a th:href="@{/menu}">Home</a></li>
-                <li class="active"><i class="fas fa-angle-right"></i>LogIn</li>
-            </ul>
-        </div>
-    </div>
-</section>
-<!-- //inner banner -->
-
-<!-- login block -->
-<section class="w3l-contact py-5" id="contact">
+<section class="services-w3l-block py-5" id="features">
     <div class="container py-md-5 py-4">
-        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
-            <h3 class="title-style">LogIn</h3>
-        </div>
-        <div class="row login-block">
-            <div class="col-md-6 login-center">
-                <form action="/login" method="post" class="signin-form">
-                    <div class="col-md-8 login-center input-grids">
-                        <li class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(errorMessge)}"
-                            th:text="${errorMessge}" />
-                        <input type="text" name="username" id="username" placeholder="Username"
-                               class="login-input" />
-                        <input type="password" name="password" id="password" placeholder="Password"
-                               class="login-input" />
-                    </div>
-                    <div class="col-md-8 login-center text-start">
-                        <button class="btn btn-style btn-style-3 text-left">Log In</button>
-                        <a th:href="@{/register}" class="new-user text-right" href="">New User ?</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+<div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
+    <h2 class="text-center">List of Images</h2>
+
+    <div th:if="${images.size() > 0}">
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">File Name</th>
+                <th scope="col">Link</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="image : ${images}">
+                <td><img th:src="@{${image.url}}" alt="${image.name}" height="60px" /></td>
+                <td>[[${image.name}]]</td>
+                <td><a th:href="@{${image.url}}">Download</a></td>
+                <td>
+                    <a th:href="@{'/images/delete/' + ${image.name}}" th:fileName="${image.name}" id="btnDelete"
+                       title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:unless="${images.size() > 0}">
+        <span>No files found!</span>
+    </div>
+</div>
     </div>
 </section>
-<!-- //login block -->
-
-<!-- footer block -->
-<div th:replace="footer :: footer">...</div>
+<div th:replace="footer :: footer"></div>
 <!-- //footer block -->
 
 <!-- Js scripts -->
@@ -96,6 +83,10 @@
 <script src="assets/js/jquery-3.3.1.min.js"></script>
 <!-- //common jquery plugin -->
 
+<!-- /counter-->
+<script src="assets/js/counter.js"></script>
+<!-- //counter-->
+
 <!-- theme switch js (light and dark)-->
 <script src="assets/js/theme-change.js"></script>
 <!-- //theme switch js (light and dark)-->
@@ -127,9 +118,7 @@
         });
     });
 </script>
-<!-- //MENU-JS -->
 
-<!-- disable body scroll which navbar is in active -->
 <script>
     $(function () {
         $('.navbar-toggler').click(function () {
@@ -137,12 +126,8 @@
         })
     });
 </script>
-<!-- //disable body scroll which navbar is in active -->
 
-<!-- bootstrap -->
 <script src="assets/js/bootstrap.min.js"></script>
-<!-- //bootstrap -->
-<!-- //Js scripts -->
-</body>
 
+</body>
 </html>

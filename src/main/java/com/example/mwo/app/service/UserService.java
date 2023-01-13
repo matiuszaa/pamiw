@@ -12,6 +12,8 @@ public interface UserService {
 
     public LoginUserDto validateUser(LoginUserDto loggingUser);
 
+    public void sendEmail();
+
     public List<String> showAvailableCities();
 
     boolean createNewPerson(RegisterUserDto person);

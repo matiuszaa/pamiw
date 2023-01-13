@@ -104,6 +104,4 @@ public class UserServiceImplTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
-
 }

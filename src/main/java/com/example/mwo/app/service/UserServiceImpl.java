@@ -49,6 +49,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void sendEmail() {
+        log.info("email sent!");
+    }
+
+    @Override
     @Transactional
     public List<String> showAvailableCities() {
         List<String> locationsList = userDAO.showAvailableCities();

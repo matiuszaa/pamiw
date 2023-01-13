@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,10 @@ public class UserController {
     }
 
     @RequestMapping(value ="/createUser",method = { RequestMethod.POST})
-    public String createUser(@Valid @ModelAttribute("person") RegisterUserDto person) {
+    public String createUser(@Valid @ModelAttribute("person") RegisterUserDto person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register.html";
+        }
         boolean isSaved = userService.createNewPerson(person);
         if(isSaved){
             return "redirect:/login?register=true";
@@ -85,6 +89,12 @@ public class UserController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login?logout=true";
+    }
+
+    @PostMapping("/mail")
+    public String sendMail(){
+        userService.sendEmail();
+        return "redirect:/menu";
     }
 
 }
